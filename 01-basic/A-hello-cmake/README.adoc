@@ -25,7 +25,7 @@ A-hello-cmake$ tree
 ### CMakeLists.txt
 
 CMakeLists.txt是应存储所有CMake命令的文件。当
-cmake 在文件夹中运行时，它将查找此文件，如果不存在，则cmake
+cmake 在文件夹中运行时，它将查找此文件，如果不存在，则 cmake
 将退出并出现错误。
 
 ### Minimum CMake version
