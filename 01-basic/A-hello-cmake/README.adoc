@@ -50,8 +50,8 @@ project (hello_cmake)
 
 ### Creating an Executable
 
-+add_executable()+ 命令指定应从指定的源文件（在本示例中为main.cpp）构建出一个可执行文件。
-+add_executable()+ 函数的第一个参数是要构建的可执行文件名称，第二个参数是要编译的源文件列表。
++add_executable()+命令指定应从指定的源文件（在本示例中为main.cpp）构建出一个可执行文件。
++add_executable()+函数的第一个参数是要构建的可执行文件名称，第二个参数是要编译的源文件列表。
 
 [source,cmake]
 ----
