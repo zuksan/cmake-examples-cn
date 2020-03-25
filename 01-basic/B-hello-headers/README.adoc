@@ -41,7 +41,7 @@ CMake syntax specifies a number of https://cmake.org/Wiki/CMake_Useful_Variables
 which can be used to help find useful directories in your project or source tree.
 Some of these include:
 
-CMake语法可以指定一些可以用来帮助您在项目或源代码树中找到使用的目录的https://cmake.org/Wiki/CMake_Useful_Variables[variables]（变量）。
+CMake语法可以指定一些可以用来帮助您在项目或源代码树中找到使用的目录的 https://cmake.org/Wiki/CMake_Useful_Variables[variables]（变量）。
 其中一些包括：
 
 [cols=",",options="header",]
@@ -177,7 +177,7 @@ In the previous examples, when running the make command the output only
 shows the status of the build. To see the full output for debugging
 purposes you can add +VERBOSE=1+ flag when running make.
 
-在前面的示例中，运行make命令时的输出只显示了构建的情况。若要查看完整的调试输出，您可以在运行make时添加 +VERBOSE=1+标志。
+在前面的示例中，运行make命令时的输出只显示了构建的情况。若要查看完整的调试输出，您可以在运行make时添加 +VERBOSE=1+ 标志。
 
 The VERBOSE output is show below, and a examination of the output shows
 the include directories being added to the c++ compiler command.
