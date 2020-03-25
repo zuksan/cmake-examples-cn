@@ -3,6 +3,8 @@
 Many large projects are made up of different libraries and binaries. These
 can be organised into multiple folders and sub-projects to ease development.
 
+许多大型项目由不同的库和二进制文件组成。它们可以组织为多个文件夹和子项目，以简化开发。
+
 The examples included are
 
   - link:A-basic[basic] - This basic example includes a static library, a header only library
