@@ -6,7 +6,11 @@ toc::[]
 
 # Introduction
 
+Shows a very basic hello world example.
+
 展示了一个非常基本的hello world示例。
+
+The files in this tutorial are below:
 
 本教程中的文件如下：
 
