@@ -10,7 +10,11 @@ toc::[]
 Shows a hello world example which uses a different folder for source and include
 files.
 
+显示一个hello world示例，该示例使用其他文件夹作为源并“包含”文件。
+
 The files in this tutorial include:
+
+本教程中的文件包括：
 
 ```
 B-hello-headers$ tree
@@ -37,6 +41,9 @@ CMake syntax specifies a number of https://cmake.org/Wiki/CMake_Useful_Variables
 which can be used to help find useful directories in your project or source tree.
 Some of these include:
 
+CMake语法可以指定一些可以用来帮助您在项目或源代码树中找到使用的目录的https://cmake.org/Wiki/CMake_Useful_Variables[variables]（变量）。
+其中一些包括：
+
 [cols=",",options="header",]
 |=======================================================================
 |Variable |Info
@@ -61,6 +68,9 @@ Creating a variable which includes the source files allows you to be
 clearer about these files and easily add them to multiple commands, for example,
 the +add_executable()+ function.
 
+创建一个包含源文件的变量，可以让您更容易理清这些文件，并将其轻松添加到多个命令中，例如，
++add_executable()+ 函数。
+
 [source,cmake]
 ----
 # Create a sources variable with a link to all cpp files to compile
@@ -77,6 +87,8 @@ add_executable(${PROJECT_NAME} ${SOURCES})
 An alternative to setting specific file names in the +SOURCES+ variable is
 to use a GLOB command to find files using wildcard pattern matching.
 
+在 +SOURCES+ 变量中设置特定文件名的另一种方法是使用 GLOB 命令使用通配符模式匹配来查找文件。
+
 [source,cmake]
 ----
 file(GLOB SOURCES "src/*.cpp")
@@ -89,14 +101,22 @@ file(GLOB SOURCES "src/*.cpp")
 For modern CMake it is NOT recommended to use a variable for sources. Instead it is 
 typical to directly declare the sources in the add_xxx function.
 
+对于现代CMake，不建议对源使用变量。相反，通常直接在add_xxx函数中声明源文件。
+
 This is particularly important for glob commands which may not always show you the
 correct results if you add a new source file.
+
+这对于可能未必总是向您显示出正确结果的glob命令尤其重要；
+
 ====
 
 ## Including Directories
 
 When you have different include folders, you can make your compiler aware of them using the
 +target_include_directories()+ link:https://cmake.org/cmake/help/v3.0/command/target_include_directories.html[function]. When compiling this target this will add these directories to the compiler with the -I flag e.g. `-I/directory/path`
+
+当您有其他包含文件夹时，可以使用以下命令使编译器知道它们：
++target_include_directories()+ link:https://cmake.org/cmake/help/v3.0/command/target_include_directories.html[function]。编译此目标时，这将使用-I标志将这些目录添加到编译器中，例如： `-I/directory/path`
 
 [source,cmake]
 ----
@@ -108,11 +128,15 @@ target_include_directories(target
 
 The +PRIVATE+ identifier specifies the scope of the include. This is important for libraries and is explained in the next example. More details on the function is available link:https://cmake.org/cmake/help/v3.0/command/target_include_directories.html[here]
 
++PRIVATE+ 标识符指定了 include 的范围。这对库很重要，将在下一个示例中进行说明。有关该功能的更多详细信息，请参见以下链接：link:https:/cmake.org/cmake/help/v3.0/command/target_include_directories.html[here]
+
 # Building the Example
 
 ## Standard Output
 
 The standard output from building this example is presented below.
+
+下面显示了构建此示例的标准输出。
 
 [source,bash]
 ----
@@ -153,8 +177,12 @@ In the previous examples, when running the make command the output only
 shows the status of the build. To see the full output for debugging
 purposes you can add +VERBOSE=1+ flag when running make.
 
+在前面的示例中，运行make命令时的输出只显示了构建的情况。若要查看完整的调试输出，您可以在运行make时添加 +VERBOSE=1+标志。
+
 The VERBOSE output is show below, and a examination of the output shows
 the include directories being added to the c++ compiler command.
+
+VERBOSE 输出如下所示，对输出的检查显示包含目录已添加到 c++ 编译器命令。
 
 [source,bash]
 ----
