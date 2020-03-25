@@ -8,7 +8,11 @@ toc::[]
 
 Shows a hello world example which first creates and links a shared library.
 
+显示一个hello world示例，该示例首先创建并链接共享库。
+
 This also shows how to create an link:https://cmake.org/cmake/help/v3.0/manual/cmake-buildsystem.7.html#alias-targets[alias target]
+
+也说展示了了如何创建 link:https://cmake.org/cmake/help/v3.0/manual/cmake-buildsystem.7.html#alias-targets[alias target]
 
 The files in this tutorial are below:
 
@@ -38,6 +42,9 @@ As with the previous example on static libraries, the +add_library()+ function
 is also used to create a shared library from some source files.
 This is called as follows:
 
+与静态库上一个示例一样， +add_library()+ 函数还用于从某些源文件创建共享库。
+可如下调用：
+
 [source,cmake]
 ----
 add_library(hello_library SHARED
@@ -48,9 +55,13 @@ add_library(hello_library SHARED
 This will be used to create a shared library with the name libhello_library.so with
 the sources passed to the +add_library()+ function.
 
+这将会使用传递给 +add_library()+ 函数的源代码创建名为libhello_library.so的共享库。
+
 ## Alias Target
 
 As the name suggests an link:https://cmake.org/cmake/help/v3.0/manual/cmake-buildsystem.7.html#alias-targets[alias target] is an alternative name for a target that can be used instead of the real target name in read-only contexts.
+
+顾名思义，一个 link:https://cmake.org/cmake/help/v3.0/manual/cmake-buildsystem.7.html#alias-targets[alias target] 是在只读上下文中可以使用的某目标的替代名称，而不是真实的目标名称。
 
 [source,cmake]
 ----
@@ -59,10 +70,14 @@ add_library(hello::library ALIAS hello_library)
 
 As shown below, this allows you to reference the target using the alias name when linking it against other targets.
 
+如下所示，当您将目标链接到其他目标时，可以使用别名引用目标。
+
 ## Linking a Shared Library
 
 Linking a shared library is the same as linking a static library. When creating your
 executable use the the +target_link_library()+ function to point to your library
+
+链接共享库与链接静态库相同。创建您的可执行文件时，使用 +target_link_library()+ 函数指向您的库。
 
 [source,cmake]
 ----
@@ -77,6 +92,8 @@ target_link_libraries(hello_binary
 ----
 
 This tells CMake to link the hello_library against the hello_binary executable using the alias target name.
+
+这里通过使用别名目标名称告诉 CMake 将 hello_library 链接到 hello_binary 可执行文件。
 
 An example of this being called by the linker is
 
