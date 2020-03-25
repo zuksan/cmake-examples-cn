@@ -11,6 +11,11 @@ CMake supports setting compile flags in a number of different ways:
   * using +target_compile_definitions()+ function
   * using the +CMAKE_C_FLAGS+ and +CMAKE_CXX_FLAGS+ variables.
 
+CMake支持以多种不同方式设置编译标志：
+
+  * 使用函数 +target_compile_definitions()+ 
+  * 使用 +CMAKE_C_FLAGS+ 和 +CMAKE_CXX_FLAGS+ 变量。
+
 The files in this tutorial are below:
 
 ```
@@ -30,6 +35,8 @@ $ tree
 The recommended way to set C++ flags in modern CMake is to use per-target flags which can be populated to other targets
 through the +target_compile_definitions()+ link:https://cmake.org/cmake/help/v3.0/command/target_compile_definitions.html?highlight=target_compile_definitions[function]. This will populate the link:https://cmake.org/cmake/help/v3.0/prop_tgt/INTERFACE_COMPILE_DEFINITIONS.html#prop_tgt:INTERFACE_COMPILE_DEFINITIONS[INTERFACE_COMPILE_DEFINITIONS] for the library and push the definition to the linked target depending on the scope.
 
+在现代CMake中设置 C++ flag (标志)的推荐方法是 按每个目标设置标志，这样该标志可以通过 +target_compile_definitions()+ link:https://cmake.org/cmake/help/v3.0/command/target_compile_definitions.html?highlight=target_compile_definitions[function] 这个函数填充到其他目标中。也会填充库的 link:https://cmake.org/cmake/help/v3.0/prop_tgt/INTERFACE_COMPILE_DEFINITIONS.html#prop_tgt:INTERFACE_COMPILE_DEFINITIONS[INTERFACE_COMPILE_DEFINITIONS] ，根据作用域范围将定义推送到链接的目标。
+
 [source,cmake]
 ----
 target_compile_definitions(cmake_examples_compile_flags
@@ -39,17 +46,28 @@ target_compile_definitions(cmake_examples_compile_flags
 
 This will cause the compiler to add the definition +-DEX3+ when compiling the target.
 
+这将导致编译器在编译目标时添加定义 +-DEX3+。
+
 In the target was a library, and the scope +PUBLIC+ or +INTERFACE+ has been chosen the definition would also be included in any executables that link this target.
 
+在目标中有一个库，并且选择了范围 +PUBLIC+ 或 +INTERFACE+ ，该定义也将包含在链接此目标的任何可执行文件中。
+
 For compiler options you can also use the +target_compile_options()+ link:https://cmake.org/cmake/help/v3.0/command/target_compile_options.html[function].
+
+对于编译器选项，您还可以使用 +target_compile_options()+ link:https://cmake.org/cmake/help/v3.0/command/target_compile_options.html[function]。
 
 ## Set Default C++ Flags
 
 The default `CMAKE_CXX_FLAGS` is either empty or contains the appropriate flags
 for the build type.
 
+默认 `CMAKE_CXX_FLAGS` 要么是空的，要么包含用于构建类型的适当的标志。
+
 To set additional default compile flags you can add the following to your
 top level CMakeLists.txt
+
+要设置其他默认编译标志，您可以将以下内容添加到您的
+顶层CMakeLists.txt
 
 [source,cmake]
 ----
@@ -61,10 +79,17 @@ Similarly to +CMAKE_CXX_FLAGS+ other options include:
   * Setting C compiler flags using +CMAKE_C_FLAGS+
   * Setting linker flags using +CMAKE_LINKER_FLAGS+.
 
+与 +CMAKE_CXX_FLAGS+ 类似，其他选项包括：
+  
+  * 使用 +CMAKE_C_FLAGS+ 设定 C 编译器 flags
+  * 使用 +CMAKE_LINKER_FLAGS+ 设定链接器 flags
+
 [NOTE]
 ====
 The values `CACHE STRING "Set C++ Compiler Flags" FORCE` from the above command
 are used to force this variable to be set in the CMakeCache.txt file.
+
+上面的命令中 `CACHE STRING "Set C++ Compiler Flags" FORCE` 用于强制在CMakeCache.txt文件中设置此变量。
 
 For more details, see https://cmake.org/cmake/help/v3.0/command/set.html[here]
 ====
@@ -72,9 +97,13 @@ For more details, see https://cmake.org/cmake/help/v3.0/command/set.html[here]
 
 Once set the +CMAKE_C_FLAGS+ and +CMAKE_CXX_FLAGS+ will set a compler flag / definition globally for all targets in this directory or any included sub-directories. This method is not recommended for general usage now and the +target_compile_definitions+ function is preferred.
 
+设置 +CMAKE_C_FLAGS+ 和 +CMAKE_CXX_FLAGS+ 后，将为该目录或任何包含的子目录中的所有目标全局地设置一个编译器标志/定义。现在不建议广泛使用此方法，首选 +target_compile_definitions+ 函数。
+
 ### Set CMake Flags
 
 Similar to the build type a global C++ compiler flag can be set using the following methods.
+
+与构建类型类似，可以使用以下方法设置全局 C++ 编译器标志。
 
   - Using a gui tool such as ccmake / cmake-gui
 
