@@ -14,6 +14,14 @@ create the following:
   * sublibrary2 - A header only library
   * subbinary - An executable
 
+本示例展示了如何设置包含子项目的CMake项目。顶层 CMakeLists.txt
+将调用子目录中的CMakeLists.txt
+来创建如下内容：
+
+  * sublibrary1 - 一个静态库
+  * sublibrary2 - 一个 header-only 的库
+  * subbinary - 一个可执行文件
+
 The files included in this example are:
 
 ```
@@ -51,12 +59,18 @@ $ tree
 In this example I have moved the header files to a subfolder under each projects +include+
 directory, while leaving the target include as the root +include+ folder. This is a good idea to prevent 
 filename clashes because you have to include a file like below:
+
+在此示例中，我已将头文件移至每个项目的 +include+ 的子文件夹中
+目录，同时保留目标 include 作为根 +include+ 文件夹。这是防止发生文件名冲突的一个好办法，因为您必须包含如下文件：
 [source,cpp]
 ----
 #include "sublib1/sublib1.h"
 ----
 
 This also means that if you install your library for other users the default install location would be
++/usr/local/include/sublib1/sublib1.h+.
+
+这也意味着，如果您为其他用户安装库，则默认安装位置为
 +/usr/local/include/sublib1/sublib1.h+.
 ====
 
@@ -66,6 +80,9 @@ This also means that if you install your library for other users the default ins
 
 A CMakeLists.txt file can include and call sub-directories which include a CMakeLists.txt
 files.
+
+CMakeLists.txt 文件可以包含和调用那些同样包含 CMakeLists.txt
+文件的子目录。
 
 [source,cmake]
 ----
@@ -81,6 +98,11 @@ create a number of variables which can be used to reference details about the pr
 These variables can then be used by other sub-projects or the main project. For exampe,
 to reference the source directory for a different project you can use.
 
+当使用 `project()` 命令创建一个项目时，CMake会自动
+创建许多变量，这些变量可用于引用有关项目的详细信息。
+这些变量之后可以由其他子项目或主项目使用。例如，
+引用您可以使用的其他项目的源目录。
+
 [source,cmake]
 ----
     ${sublibrary1_SOURCE_DIR}
@@ -89,25 +111,45 @@ to reference the source directory for a different project you can use.
 
 The variables created by CMake include:
 
+CMake创建的变量包括：
+
 [cols=",",options="header",]
 |=======================================================================
 |Variable |Info
 |PROJECT_NAME | The name of the project set by the current `project()`.
 
+当前 `project()` 设置的项目名称。
+
 |CMAKE_PROJECT_NAME |the name of the first project set by the `project()`
 command, i.e. the top level project.
 
+`project()` 命令设置的第一个项目名称，即顶级项目。
+
 |PROJECT_SOURCE_DIR |The source director of the current project.
 
+当前项目的源代码目录。
+
 |PROJECT_BINARY_DIR |The build directory for the current project.
+
+当前项目的构建目录。
 
 |name_SOURCE_DIR | The source directory of the project called "name".
 In this example the source directories created would be `sublibrary1_SOURCE_DIR`,
 `sublibrary2_SOURCE_DIR`, and `subbinary_SOURCE_DIR`
 
+名称为 "name" 的项目的源代码目录。
+在此示例中，创建的源目录为
+`sublibrary1_SOURCE_DIR`,
+`sublibrary2_SOURCE_DIR`, 和 `subbinary_SOURCE_DIR`
+
 |name_BINARY_DIR | The binary directory of the project called "name".
 In this example the binary directories created would be `sublibrary1_BINARY_DIR`,
 `sublibrary2_BINARY_DIR`, and `subbinary_BINARY_DIR`
+
+名称为 "name" 的项目的二进制文件目录。
+在此示例中，创建的二进制目录为
+`sublibrary1_BINARY_DIR`,
+`sublibrary2_BINARY_DIR`, 和 `subbinary_BINARY_DIR`
 
 |=======================================================================
 
@@ -115,6 +157,10 @@ In this example the binary directories created would be `sublibrary1_BINARY_DIR`
 
 If you have a library that is created as a header only library, cmake supports the +INTERFACE+
 target to allow creating a target without any build output. More details can be found from
+link:https://cmake.org/cmake/help/v3.4/command/add_library.html#interface-libraries[here]
+
+如果您有一个 header only 的库，则 cmake 支持 +INTERFACE+
+目标以允许创建没有任何构建输出的目标。可以从以下位置找到更多详细信息
 link:https://cmake.org/cmake/help/v3.4/command/add_library.html#interface-libraries[here]
 
 [source,cmake]
@@ -125,6 +171,8 @@ add_library(${PROJECT_NAME} INTERFACE)
 When creating the target you can also include directories for that target using
 the +INTERFACE+ scope. The +INTERFACE+ scope is use to make target requirements that are used in any Libraries
 that link this target but not in the compilation of the target itself.
+
+创建目标时，您还可以使用 +INTERFACE+ scope 来包含该目标的目录。 +INTERFACE+ scope 用于声明某个目标在链接到这个目标的任何库中都被使用但在目标本身编译时不使用的要求。
 
 [source,cmake]
 ----
@@ -141,6 +189,10 @@ calling the name of the project in the `target_link_libraries()` command. This
 means that you don't have to reference the full path of the new library and it
 is added as a dependency.
 
+如果子项目创建了一个库，则其他项目可以通过以下方式引用该库：
+在 `target_link_libraries()` 命令中调用项目的名称。
+这意味着您不必引用新库的完整路径，它会被添加为一个依赖项。
+
 [source,cmake]
 ----
 target_link_libraries(subbinary
@@ -152,7 +204,11 @@ target_link_libraries(subbinary
 Alternatively, you can create an alias target which allows you to reference the
 target in read only contexts.
 
+或者，您可以创建一个别名目标，使其在只读上下文中引用目标。
+
 To create an alias target run:
+
+要创建别名目标可运行：
 
 [source,cmake]
 ----
@@ -161,6 +217,9 @@ add_library(sub::lib2 ALIAS sublibrary2)
 ----
 
 To reference the alias, just it as follows:
+
+要引用别名，只需如下所示：
+
 [source,cmake]
 ----
 target_link_libraries(subbinary
@@ -174,11 +233,19 @@ When adding the libraries from the sub-projects, starting from cmake v3, there i
 no need to add the projects include directories in the include directories of the
 binary using them.
 
+从 cmake v3 开始，从子项目添加库时，
+无需在项目的包含目录中添加项目的包含目录
+使用它们的二进制文件。
+
 This is controlled by the scope in the `target_include_directories()` command when creating
 the libraries. In this example because the subbinary executable links the sublibrary1
 and sublibrary2 libraries it will automatically include the `${sublibrary1_SOURCE_DIR}/inc`
 and `${sublibrary2_SOURCE_DIR}/inc` folders as they are exported with the
  +PUBLIC+ and +INTERFACE+ scopes of the libraries.
+
+这由 `target_include_directories()` 命令创建库时使用的 scope 控制。在此示例中，因为 subbinary 可执行文件链接了 sublibrary1
+和sublibrary2 库，它将自动包括 `${sublibrary1_SOURCE_DIR}/inc`
+和 `${sublibrary2_SOURCE_DIR}/inc` 文件夹因为它们库的 scope 使用的是 +PUBLIC+ 和 +INTERFACE+ 。
 
 # Building the example
 
